@@ -1,0 +1,19 @@
+server:
+  servlet:
+    context-path: /cliente-cartao/api
+
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:mem:demodb
+    username: admin
+    password: ''
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      
+springdoc:
+   swagger-ui:
+    path: /swagger
