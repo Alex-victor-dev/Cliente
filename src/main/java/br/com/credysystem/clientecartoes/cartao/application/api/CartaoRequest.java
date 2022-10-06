@@ -5,7 +5,8 @@ import lombok.Value;
 
 @Value
 public class CartaoRequest {
-	private Double limiteTotal;
+
 	private Bandeira bandeiraCartao;
+	private Double limiteTotal;
 
 }

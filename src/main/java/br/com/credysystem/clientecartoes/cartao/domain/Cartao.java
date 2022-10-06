@@ -54,15 +54,15 @@ public class Cartao {
 		return string.toString();
 	}
 
-	private static String maskaraDigitos(String ccnum) {
-		int total = ccnum.length();
+	private static String maskaraDigitos(String posicao) {
+		int total = posicao.length();
 		int startlen = 4, endlen = 4;
 		int masklen = total - (startlen + endlen);
-		StringBuffer maskedbuf = new StringBuffer(ccnum.substring(0, startlen));
+		StringBuffer maskedbuf = new StringBuffer(posicao.substring(0, startlen));
 		for (int i = 0; i < masklen; i++) {
 			maskedbuf.append('X');
 		}
-		maskedbuf.append(ccnum.substring(startlen + masklen, total));
+		maskedbuf.append(posicao.substring(startlen + masklen, total));
 		String masked = maskedbuf.toString();
 		return masked;
 	}
