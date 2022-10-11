@@ -12,6 +12,7 @@ import br.com.credysystem.clientecartoes.cartao.application.api.CartaoResponse;
 import br.com.credysystem.clientecartoes.cartao.application.repository.CartaoRepository;
 import br.com.credysystem.clientecartoes.cartao.domain.Cartao;
 import br.com.credysystem.clientecartoes.cliente.application.service.ClienteService;
+import br.com.credysystem.clientecartoes.cliente.domain.Cliente;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -26,8 +27,9 @@ public class CartaoApplicationService implements CartaoService {
 	@Override
 	public CartaoResponse criaCartao(UUID idCliente, CartaoRequest cartaoRequest) {
 		log.info("[start] CartaoApplicationService - criaCartao");
-		clienteService.buscaClienteAtravesId(idCliente).getSalario();
-		Cartao cartao = cartaoRepository.criaCartao(new Cartao(idCliente, cartaoRequest));
+		Cliente cliente = clienteService.buscaClienteAtravesId(idCliente);
+		Double salario = cliente.getSalario();
+		Cartao cartao = cartaoRepository.criaCartao(new Cartao(idCliente, cartaoRequest, salario));
 		log.info("[finish] CartaoApplicationService - criaCartao");
 		return new CartaoResponse(cartao.getIdCartao());
 	}

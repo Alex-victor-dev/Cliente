@@ -24,6 +24,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Cartao {
 
+	private static final Double limiteMaximu = 2000.0;
+	private static final Double limiteMinimu = 200.0;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(columnDefinition = "uuid", name = "idCartao", updatable = false, unique = true, nullable = false)
@@ -36,11 +39,23 @@ public class Cartao {
 	private Double limiteTotal;
 	private String numeroCartao;
 
-	public Cartao(UUID idCliente, CartaoRequest cartaoRequest) {
+	public Cartao(UUID idCliente, CartaoRequest cartaoRequest, Double salario) {
 		this.idClienteCartao = idCliente;
 		this.bandeiraCartao = cartaoRequest.getBandeiraCartao();
 		this.limiteTotal = cartaoRequest.getLimiteTotal();
 		this.numeroCartao = maskaraDigitos(gerarDigitosAleatorios(16));
+		this.limiteTotal = geraLimiteCartao(salario);
+
+	}
+
+	public Double geraLimiteCartao(Double salario) {
+		Double limiteTotal = (salario / 100) * 30;
+		if (limiteTotal < limiteMinimu) {
+			limiteTotal = limiteMinimu;
+		} else if (limiteTotal > limiteMaximu) {
+			limiteTotal = limiteMaximu;
+		}
+		return limiteTotal;
 
 	}
 
